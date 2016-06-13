@@ -583,6 +583,9 @@ import android.view.WindowManager;
 		if (scrollIntoSlots) {
 			scrollIntoSlots();
 		}
+		if (mOnWheelFlingListener != null) {
+			mOnWheelFlingListener.onEnd();
+		}
 	}
 
 	/**
@@ -850,6 +853,8 @@ import android.view.WindowManager;
 	public interface OnWheelFlingListener {
 
 		void onFling(boolean autoFling);
+
+		void onEnd();
 	}
 
 	/**

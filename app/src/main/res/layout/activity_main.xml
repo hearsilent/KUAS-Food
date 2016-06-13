@@ -24,16 +24,34 @@
 			android:layout_width="match_parent"
 			android:layout_height="?attr/actionBarSize"/>
 
-		<TextView
-			android:id="@+id/textView_title"
+		<FrameLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
-			android:gravity="center"
-			android:lineSpacingMultiplier="0.5"
-			android:text="@string/star_war_title"
-			android:textColor="#FFE81F"
-			android:textSize="70sp"/>
+			android:layout_marginLeft="8dp"
+			android:layout_marginRight="8dp">
+
+			<TextView
+				android:id="@+id/textView_title"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:lineSpacingMultiplier="0.5"
+				android:text="@string/star_war_title"
+				android:textColor="#FFE81F"
+				android:textSize="70sp"/>
+
+			<TextView
+				android:id="@+id/textView_food"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:alpha="0"
+				android:text="腿庫飯"
+				android:textColor="#FFE81F"
+				android:textSize="36sp"
+				android:visibility="gone"/>
+		</FrameLayout>
 
 		<FrameLayout
 			android:layout_width="wrap_content"
@@ -60,6 +78,7 @@
 					android:id="@id/id_wheel_menu_center_item"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:alpha="0.8"
 					android:background="@drawable/wheel_center"/>
 			</hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout>
 		</FrameLayout>

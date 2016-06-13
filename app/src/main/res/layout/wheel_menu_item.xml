@@ -13,7 +13,8 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="top|center_horizontal"
 		android:layout_marginTop="2sp"
-		android:textColor="#fff"
+		android:alpha="0.8"
+		android:textColor="#1396FE"
 		android:textSize="12sp"
 		tools:text="Test"
 		tools:visibility="visible"/>

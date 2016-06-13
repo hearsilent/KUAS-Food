@@ -1,5 +1,6 @@
 package hearsilent.kuas.food;
 
+import android.animation.Animator;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import github.hellocsl.cursorwheel.CursorWheelLayout;
 import hearsilent.kuas.food.adapter.SimpleTextAdapter;
@@ -27,11 +29,13 @@ import hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout;
 public class MainActivity extends AppCompatActivity {
 
 	Toolbar mToolbar;
-	TextView mTitleTextView;
+	TextView mTitleTextView, mFoodTextView;
 
 	GLSurfaceView mGlSurfaceView;
 
 	SimpleTextCursorWheelLayout mCursorWheelLayout;
+
+	boolean firstTime = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 	private void findViews() {
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		mTitleTextView = (TextView) findViewById(R.id.textView_title);
+
+		mFoodTextView = (TextView) findViewById(R.id.textView_food);
 
 		mGlSurfaceView = (GLSurfaceView) findViewById(R.id.glSurfaceView);
 
@@ -94,7 +100,45 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onFling(boolean autoFling) {
-				Log.d(Constant.TAG, "OK");
+				if (firstTime) {
+					toggleTitle();
+				}
+				List<String> test = new ArrayList<>(
+						Arrays.asList("丹丹漢堡", "紅牛牛肉麵", "第一名火雞肉飯", "孩餃王", "麥當勞", "學園"));
+				mFoodTextView.setText(test.get(new Random().nextInt(test.size())));
+			}
+
+			@Override
+			public void onEnd() {
+				Log.d(Constant.TAG, "End");
+			}
+		});
+	}
+
+	private void toggleTitle() {
+		firstTime = false;
+		mTitleTextView.animate().alpha(0f).setListener(new Animator.AnimatorListener() {
+
+			@Override
+			public void onAnimationStart(Animator animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				mTitleTextView.setVisibility(View.INVISIBLE);
+				mFoodTextView.setVisibility(View.VISIBLE);
+				mFoodTextView.animate().alpha(1f);
+			}
+
+			@Override
+			public void onAnimationCancel(Animator animation) {
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator animation) {
+
 			}
 		});
 	}
