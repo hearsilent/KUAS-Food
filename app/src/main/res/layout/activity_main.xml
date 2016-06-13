@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fitsSystemWindows="true"
+	tools:context="hearsilent.kuas.food.MainActivity">
+
+	<android.opengl.GLSurfaceView
+		android:id="@+id/glSurfaceView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:fitsSystemWindows="true"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<android.support.v7.widget.Toolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"/>
+
+		<TextView
+			android:id="@+id/textView_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:gravity="center"
+			android:lineSpacingMultiplier="0.5"
+			android:text="@string/star_war_title"
+			android:textColor="#FFE81F"
+			android:textSize="70sp"/>
+
+		<hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout
+			android:id="@+id/cursorWheelLayout"
+			android:layout_width="306dip"
+			android:layout_height="306dip"
+			android:layout_gravity="center"
+			app:wheelSelectedAngle="270">
+
+			<View
+				android:id="@id/id_wheel_menu_center_item"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/wheel"/>
+		</hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout>
+	</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

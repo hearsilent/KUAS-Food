@@ -1,0 +1,7 @@
+<resources>
+	<string name="app_name">高應美食通</string>
+	<string name="star_war_title">kuas\nfood</string>
+
+	<string name="all_foods">所有美食</string>
+	<string name="open_source">開放原始碼授權</string>
+</resources>
