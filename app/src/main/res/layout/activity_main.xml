@@ -35,18 +35,33 @@
 			android:textColor="#FFE81F"
 			android:textSize="70sp"/>
 
-		<hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout
-			android:id="@+id/cursorWheelLayout"
-			android:layout_width="306dip"
-			android:layout_height="306dip"
-			android:layout_gravity="center"
-			app:wheelSelectedAngle="270">
+		<FrameLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center">
 
-			<View
-				android:id="@id/id_wheel_menu_center_item"
-				android:layout_width="wrap_content"
+			<ImageView
+				android:layout_width="350dp"
 				android:layout_height="wrap_content"
-				android:background="@drawable/wheel"/>
-		</hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout>
+				android:layout_gravity="center"
+				android:adjustViewBounds="true"
+				android:src="@drawable/wheel_frame"/>
+
+			<hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout
+				android:id="@+id/cursorWheelLayout"
+				android:layout_width="170dip"
+				android:layout_height="170dip"
+				android:layout_gravity="center"
+				app:wheelBackgroundColor="#1F1396FE"
+				app:wheelCursorColor="#D01396FE"
+				app:wheelSelectedAngle="270">
+
+				<ImageView
+					android:id="@id/id_wheel_menu_center_item"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/wheel_center"/>
+			</hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout>
+		</FrameLayout>
 	</LinearLayout>
 </android.support.v4.widget.DrawerLayout>

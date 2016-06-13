@@ -35,7 +35,7 @@ public class SimpleTextAdapter implements CursorWheelLayout.CycleWheelAdapter {
 		TextView textView = (TextView) root.findViewById(R.id.wheel_menu_item_tv);
 
 		textView.setVisibility(View.VISIBLE);
-		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
 		textView.setText(item);
 
 		return root;

@@ -54,7 +54,7 @@ import android.view.WindowManager;
 	/**
 	 * default wheel background color
 	 */
-	private static final @ColorInt int DEFAULT_WHEEL_BG_COLOR = 0xe513171c;
+	private static final @ColorInt int DEFAULT_WHEEL_BG_COLOR = 0xff13171c;
 
 	//DP
 	private static final int DEFAULT_TRIANGLE_HEIGHT = 13;

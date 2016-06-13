@@ -12,7 +12,7 @@
 	<color name="secondary_text_light">#4cffffff</color>
 
 
-	<color name="bg_wheel">#e513171c</color>
+	<color name="bg_wheel">#ff13171c</color>
 
 	<color name="red">#f36337</color>
 </resources>
