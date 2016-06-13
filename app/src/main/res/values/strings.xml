@@ -4,4 +4,6 @@
 
 	<string name="all_foods">所有美食</string>
 	<string name="open_source">開放原始碼授權</string>
+	<string name="hint_bubble">轉動輪盤發現食物</string>
+	<string name="hint_bubble_click">點擊決定食物</string>
 </resources>

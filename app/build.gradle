@@ -24,4 +24,6 @@ dependencies {
     compile project(':CursorWheelLayout')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.daasuu:BubbleLayout:1.1.0'
+    compile 'com.google.code.gson:gson:2.6.2'
 }
