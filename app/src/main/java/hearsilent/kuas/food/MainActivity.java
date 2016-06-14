@@ -1,12 +1,18 @@
 package hearsilent.kuas.food;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ConfigurationInfo;
 import android.graphics.Typeface;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -17,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daasuu.bl.BubbleLayout;
 import com.daasuu.bl.BubblePopupHelper;
@@ -30,23 +37,28 @@ import github.hellocsl.cursorwheel.CursorWheelLayout;
 import hearsilent.kuas.food.adapter.SimpleTextAdapter;
 import hearsilent.kuas.food.libs.Constant;
 import hearsilent.kuas.food.libs.Memory;
+import hearsilent.kuas.food.libs.PermissionUtils;
 import hearsilent.kuas.food.libs.Utils;
 import hearsilent.kuas.food.particlesys.ParticleSystemRenderer;
 import hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-	Toolbar mToolbar;
-	TextView mTitleTextView, mFoodTextView;
+	private Toolbar mToolbar;
+	private TextView mTitleTextView, mFoodTextView;
 
-	ImageView mSelectImageView;
+	private ImageView mSelectImageView;
 
-	GLSurfaceView mGlSurfaceView;
+	private GLSurfaceView mGlSurfaceView;
 
-	SimpleTextCursorWheelLayout mCursorWheelLayout;
+	private SimpleTextCursorWheelLayout mCursorWheelLayout;
 
-	boolean firstTime = true;
-	boolean select = false;
+	private boolean firstTime = true;
+	private boolean select = false;
+
+	LocationManager mLocationManager;
+	String bestProvider = LocationManager.GPS_PROVIDER;
+	@Utils.Location private String mLocation = Constant.JIANGONG;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +82,42 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void setUpViews() {
+		checkLocation();
 		setUpBackground();
 		setUpTitle();
 		setUpWheel();
 		setUpHintBubble();
+	}
+
+	private void checkLocation() {
+		if (PermissionUtils.isPermissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+			checkGPS();
+		}
+	}
+
+	private void checkGPS() {
+		LocationManager status =
+				(LocationManager) (this.getSystemService(Context.LOCATION_SERVICE));
+		if (status.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+				status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+			locationServiceInitial();
+		} else {
+			Toast.makeText(this, R.string.gps_not_open, Toast.LENGTH_LONG).show();
+			startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+		}
+	}
+
+	@SuppressWarnings("all")
+	private void locationServiceInitial() {
+		mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		Criteria criteria = new Criteria();
+		bestProvider = mLocationManager.getBestProvider(criteria, true);
+		Location location = mLocationManager.getLastKnownLocation(bestProvider);
+
+		double lat = location.getLatitude();
+		double lng = location.getLongitude();
+
+		mLocation = Utils.checkLocation(lat, lng);
 	}
 
 	private void setUpHintBubble() {
@@ -107,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 				int[] location = new int[2];
 				mSelectImageView.getLocationInWindow(location);
 				popupWindow.showAtLocation(mSelectImageView, Gravity.NO_GRAVITY,
-						location[0] - (int) Utils.convertDpToPixel(38f, MainActivity.this),
+						location[0] - (int) Utils.convertDpToPixel(40f, MainActivity.this),
 						location[1] + mSelectImageView.getHeight() +
 								(int) Utils.convertDpToPixel(5f, MainActivity.this));
 			}

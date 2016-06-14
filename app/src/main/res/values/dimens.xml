@@ -1,5 +1,44 @@
 <resources>
-	<!-- Default screen margins, per the Android Design guidelines. -->
-	<dimen name="activity_horizontal_margin">16dp</dimen>
-	<dimen name="activity_vertical_margin">16dp</dimen>
+
+	<!-- Compact dimens -->
+	<dimen name="margin_xxsmall">2dp</dimen>
+	<dimen name="margin_xsmall">4dp</dimen>
+	<dimen name="margin_small">8dp</dimen>
+	<dimen name="margin_smedium">12dp</dimen>
+	<dimen name="margin_medium">16dp</dimen>
+	<dimen name="margin_large">24dp</dimen>
+	<dimen name="margin_dialog">24dp</dimen>
+	<dimen name="margin_xlarge">32dp</dimen>
+
+	<!-- Negative dimens -->
+	<dimen name="margin_neg_xxsmall">-2dp</dimen>
+	<dimen name="margin_neg_xsmall">-4dp</dimen>
+	<dimen name="margin_neg_small">-8dp</dimen>
+	<dimen name="margin_neg_smedium">-12dp</dimen>
+	<dimen name="margin_neg_medium">-16dp</dimen>
+	<dimen name="margin_neg_large">-24dp</dimen>
+	<dimen name="margin_neg_xlarge">-32dp</dimen>
+
+	<!-- Material Design Guidelines -->
+	<dimen name="text_display_4">112sp</dimen>
+	<dimen name="text_display_3">56sp</dimen>
+	<dimen name="text_display_2">45sp</dimen>
+	<dimen name="text_display_1">34sp</dimen>
+	<dimen name="text_headline">24sp</dimen>
+	<dimen name="text_title">21sp</dimen>
+	<dimen name="text_subhead">17sp</dimen>
+	<dimen name="text_action">15sp</dimen>
+	<dimen name="text_body_2">15sp</dimen>
+	<dimen name="text_body_1">15sp</dimen>
+	<dimen name="text_caption">13sp</dimen>
+	<dimen name="text_menu">15sp</dimen>
+	<dimen name="text_button">15sp</dimen>
+	<dimen name="drawer_item_height">48dp</dimen>
+	<dimen name="drawer_item_icon_padding">32dp</dimen>
+	<dimen name="list_single_line_tile_height">56dp</dimen>
+	<dimen name="list_two_line_tile_height">72dp</dimen>
+
+	<dimen name="text_paragraph_title">26sp</dimen>
+	<dimen name="text_paragraph_body">15sp</dimen>
+
 </resources>
