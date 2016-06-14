@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -45,7 +46,7 @@ import hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout;
 public class MainActivity extends AppCompatActivity {
 
 	private Toolbar mToolbar;
-	private TextView mTitleTextView, mFoodTextView;
+	private TextView mTitleTextView, mShopTextView;
 
 	private ImageView mSelectImageView;
 
@@ -73,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		mTitleTextView = (TextView) findViewById(R.id.textView_title);
 
-		mFoodTextView = (TextView) findViewById(R.id.textView_food);
-		mSelectImageView = (ImageView) findViewById(R.id.id_wheel_menu_center_item);
+		mShopTextView = (TextView) findViewById(R.id.textView_shops);
+		mSelectImageView = (ImageView) findViewById(R.id.imageView_select);
 
 		mGlSurfaceView = (GLSurfaceView) findViewById(R.id.glSurfaceView);
 
@@ -86,12 +87,15 @@ public class MainActivity extends AppCompatActivity {
 		setUpBackground();
 		setUpTitle();
 		setUpWheel();
+		setUpSelectView();
 		setUpHintBubble();
 	}
 
 	private void checkLocation() {
 		if (PermissionUtils.isPermissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 			checkGPS();
+		} else {
+			Toast.makeText(this, R.string.access_fine_location_denied, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -100,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 				(LocationManager) (this.getSystemService(Context.LOCATION_SERVICE));
 		if (status.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
 				status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-			locationServiceInitial();
+			setUpLocationService();
 		} else {
 			Toast.makeText(this, R.string.gps_not_open, Toast.LENGTH_LONG).show();
 			startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	@SuppressWarnings("all")
-	private void locationServiceInitial() {
+	private void setUpLocationService() {
 		mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
 		bestProvider = mLocationManager.getBestProvider(criteria, true);
@@ -200,21 +204,50 @@ public class MainActivity extends AppCompatActivity {
 				}
 				if (select) {
 					select = false;
-					mFoodTextView.animate().scaleX(1f).scaleY(1f);
+					mShopTextView.animate().scaleX(1f).scaleY(1f);
+					mSelectImageView.setEnabled(false);
 				}
 				List<String> test = new ArrayList<>(
 						Arrays.asList("丹丹漢堡", "紅牛牛肉麵", "第一名火雞肉飯", "孩餃王", "麥當勞", "學園"));
-				mFoodTextView.setText(test.get(new Random().nextInt(test.size())));
+				mShopTextView.setText(test.get(new Random().nextInt(test.size())));
 			}
 
 			@Override
 			public void onEnd() {
 				if (!select) {
 					select = true;
-					mFoodTextView.animate().scaleX(1.2f).scaleY(1.2f);
+					mShopTextView.animate().scaleX(1.2f).scaleY(1.2f);
+					mSelectImageView.setEnabled(true);
 				}
 			}
 		});
+	}
+
+	private void setUpSelectView() {
+		mSelectImageView.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
+		mSelectImageView.setOnTouchListener(new View.OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						mCursorWheelLayout.setTouchable(false);
+						return false;
+					case MotionEvent.ACTION_CANCEL:
+					case MotionEvent.ACTION_UP:
+						mCursorWheelLayout.setTouchable(true);
+						return false;
+				}
+				return false;
+			}
+		});
+		mSelectImageView.setEnabled(false);
 	}
 
 	private void toggleTitle() {
@@ -230,8 +263,8 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onAnimationEnd(Animator animation) {
 				mTitleTextView.setVisibility(View.INVISIBLE);
-				mFoodTextView.setVisibility(View.VISIBLE);
-				mFoodTextView.animate().alpha(1f);
+				mShopTextView.setVisibility(View.VISIBLE);
+				mShopTextView.animate().alpha(1f);
 			}
 
 			@Override

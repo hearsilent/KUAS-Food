@@ -12,6 +12,7 @@
 		>「權限」，開啟「位置」選項。</string>
 	<string name="go_to_settings">前往設定</string>
 	<string name="permission_request_fail">無法取得權限</string>
+	<string name="access_fine_location_denied">沒有位置權限，將定位於建功校區。</string>
 	<string name="cancel">取消</string>
 
 	<string name="loading">載入中</string>

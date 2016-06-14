@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:color="@color/ripple_light">
+	<item>
+		<selector>
+
+			<item
+				android:drawable="@drawable/wheel_center_pressed"
+				android:state_pressed="true"/>
+			<item android:drawable="@drawable/wheel_center"/>
+
+		</selector>
+	</item>
+</ripple>

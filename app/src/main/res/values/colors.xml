@@ -6,6 +6,8 @@
 	<color name="colorAccent">#FFC52A</color>
 
 	<color name="app_bg">#fafafa</color>
+	<color name="ripple">#3000</color>
+	<color name="ripple_light">#6fff</color>
 
 	<!-- Material design colors -->
 

@@ -43,7 +43,7 @@
 				android:textSize="70sp"/>
 
 			<TextView
-				android:id="@+id/textView_food"
+				android:id="@+id/textView_shops"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
@@ -75,13 +75,19 @@
 				app:wheelCursorColor="#D01396FE"
 				app:wheelSelectedAngle="270">
 
-				<ImageView
+				<View
 					android:id="@id/id_wheel_menu_center_item"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:alpha="0.8"
-					android:background="@drawable/wheel_center"/>
+					android:layout_height="wrap_content"/>
 			</hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout>
+
+			<ImageView
+				android:id="@+id/imageView_select"
+				android:layout_width="70dp"
+				android:layout_height="70dp"
+				android:layout_gravity="center"
+				android:alpha="0.8"
+				android:background="@drawable/wheel_center_selecter"/>
 		</FrameLayout>
 	</LinearLayout>
 </android.support.v4.widget.DrawerLayout>

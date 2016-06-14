@@ -2,12 +2,15 @@ package hearsilent.kuas.food.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import github.hellocsl.cursorwheel.CursorWheelLayout;
 import hearsilent.kuas.food.R;
 
 public class SimpleTextCursorWheelLayout extends CursorWheelLayout {
+
+	private boolean mTouchable = true;
 
 	public SimpleTextCursorWheelLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -37,4 +40,16 @@ public class SimpleTextCursorWheelLayout extends CursorWheelLayout {
 		}
 	}
 
+	public void setTouchable(boolean touchable) {
+		mTouchable = touchable;
+	}
+
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent event) {
+		try {
+			return mTouchable && super.dispatchTouchEvent(event);
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }
