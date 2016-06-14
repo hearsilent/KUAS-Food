@@ -12,7 +12,8 @@
 		android:id="@+id/glSurfaceView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:fitsSystemWindows="true"/>
+		android:fitsSystemWindows="true"
+		tools:visibility="gone"/>
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -48,10 +49,10 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
 				android:alpha="0"
-				android:text="腿庫飯"
 				android:textColor="#FFE81F"
 				android:textSize="36sp"
-				android:visibility="gone"/>
+				android:visibility="gone"
+				tools:text="腿庫飯"/>
 		</FrameLayout>
 
 		<FrameLayout
@@ -64,6 +65,7 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
 				android:adjustViewBounds="true"
+				android:contentDescription="@null"
 				android:src="@drawable/wheel_frame"/>
 
 			<hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout
@@ -87,7 +89,8 @@
 				android:layout_height="70dp"
 				android:layout_gravity="center"
 				android:alpha="0.8"
-				android:background="@drawable/wheel_center_selecter"/>
+				android:background="@drawable/wheel_center_selector"
+				android:contentDescription="@null"/>
 		</FrameLayout>
 	</LinearLayout>
 </android.support.v4.widget.DrawerLayout>

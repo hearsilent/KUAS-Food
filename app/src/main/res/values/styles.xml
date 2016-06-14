@@ -28,4 +28,17 @@
 		<item name="android:windowBackground">@drawable/splash</item>
 	</style>
 
+	<style name="ShopsDetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowBackground">@color/app_bg</item>
+		<item name="android:windowDrawsSystemBarBackgrounds" tools:ignore="newAPI">true</item>
+		<item name="android:statusBarColor" tools:ignore="newAPI">#3000</item>
+	</style>
+
+	<style name="AppTheme.Fab">
+		<item name="colorAccent">@color/colorAccent</item>
+	</style>
+
 </resources>

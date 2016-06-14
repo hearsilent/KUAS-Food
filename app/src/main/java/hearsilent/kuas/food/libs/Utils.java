@@ -2,9 +2,17 @@ package hearsilent.kuas.food.libs;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Build;
 import android.support.annotation.StringDef;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -95,6 +103,30 @@ public class Utils {
 
 	public static boolean postVersion(int sdkInt) {
 		return Build.VERSION.SDK_INT >= sdkInt;
+	}
+
+	public static DisplayImageOptions.Builder getDisplayImageBuilder() {
+		return new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true)
+				.bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+				.displayer(new FadeInBitmapDisplayer(500));
+	}
+
+	public static int getStatusBarHeightPixel(Context context) {
+		int result = 0;
+		int resourceId =
+				context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+			result = context.getResources().getDimensionPixelSize(resourceId);
+		}
+		return result;
+	}
+
+	public static Point getDisplayDimen(Context context) {
+		Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
+				.getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		return size;
 	}
 
 }

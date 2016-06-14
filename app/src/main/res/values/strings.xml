@@ -18,4 +18,9 @@
 	<string name="loading">載入中</string>
 
 	<string name="gps_not_open">請開啟定位服務</string>
+
+	<string name="lorem_title">Lorem ipsum</string>
+	<string name="lorem_sentence">Lorem ipsum dolor sit amet.</string>
+	<string name="lorem_paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+	<string name="lorem_number">123</string>
 </resources>
