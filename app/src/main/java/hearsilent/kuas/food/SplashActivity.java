@@ -73,7 +73,7 @@ public class SplashActivity extends AppCompatActivity {
 				"phone VARCHAR(16))";
 		mDB.execSQL(createTable);
 
-		mCursor = mDB.rawQuery("SELECT * FORM " + TB_NAME, null);
+		mCursor = mDB.rawQuery("SELECT * FROM " + TB_NAME, null);
 
 		if (mCursor.getCount() == 0) {
 			addData("幸福咖哩", "高雄市三民區正忠路465號", "22.650773", "120.33042899999998", "建工", "午餐、晚餐", "無",
