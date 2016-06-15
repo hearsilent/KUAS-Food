@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:card_view="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:padding="@dimen/margin_xsmall"
+             tools:ignore="RtlHardcoded">
+
+	<android.support.v7.widget.CardView
+		style="@style/SelectableItemTheme"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		card_view:cardCornerRadius="4dp">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<FrameLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:contentDescription="@null"
+					android:scaleType="centerCrop"
+					android:src="@mipmap/ic_launcher"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="end|bottom"
+					android:padding="@dimen/margin_xsmall"
+					android:textColor="#fff"
+					android:textSize="@dimen/text_caption"
+					tools:text="1.3 公里"/>
+			</FrameLayout>
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+
+				<LinearLayout
+					android:id="@+id/linearLayout"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_toLeftOf="@+id/view_navigation"
+					android:orientation="vertical"
+					android:padding="@dimen/margin_small">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ellipsize="end"
+						android:maxLines="1"
+						android:textColor="@color/black_text"
+						android:textSize="@dimen/text_title"
+						android:textStyle="bold"
+						tools:text="HearSilent"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="@dimen/margin_small"
+						android:ellipsize="end"
+						android:maxLines="1"
+						android:textColor="@color/black_text_secondary"
+						android:textSize="@dimen/text_action"
+						tools:text="電話：071234567"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="@dimen/margin_xsmall"
+						android:ellipsize="end"
+						android:maxLines="1"
+						android:textColor="@color/black_text_secondary"
+						android:textSize="@dimen/text_action"
+						tools:text="營業時間：10:00 ~ 12:00"/>
+				</LinearLayout>
+
+				<ImageView
+					android:id="@+id/view_navigation"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignBottom="@+id/linearLayout"
+					android:layout_alignParentRight="true"
+					android:background="?attr/selectableItemBackground"
+					android:contentDescription="@null"
+					android:padding="@dimen/margin_small"
+					android:src="@drawable/ic_navigation_black_24dp"/>
+			</RelativeLayout>
+		</LinearLayout>
+	</android.support.v7.widget.CardView>
+</FrameLayout>

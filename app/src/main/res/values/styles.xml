@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
@@ -39,6 +39,15 @@
 
 	<style name="AppTheme.Fab">
 		<item name="colorAccent">@color/colorAccent</item>
+	</style>
+
+	<style name="SelectableItemTheme">
+		<item name="colorControlHighlight">#501396FE</item>
+	</style>
+
+	<style name="SelectableItemBackground">
+		<item name="android:theme">@style/SelectableItemTheme</item>
+		<item name="android:foreground">?attr/selectableItemBackground</item>
 	</style>
 
 </resources>
