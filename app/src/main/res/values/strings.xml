@@ -27,6 +27,11 @@
 	<string name="region">校區</string>
 	<string name="time">營業時間</string>
 
+	<string name="shop_phone">電話：%s</string>
+	<string name="shop_time">營業時間：%s</string>
+	<string name="shop_dis">%.2f 公里</string>
+	<string name="shop_region">%s校區</string>
+
 	<string name="db_init_error">初始化資料庫發生錯誤，請聯絡作者！</string>
 
 	<string name="lorem_title">Lorem ipsum</string>

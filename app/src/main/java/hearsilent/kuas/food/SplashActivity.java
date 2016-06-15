@@ -72,8 +72,7 @@ public class SplashActivity extends AppCompatActivity {
 	}
 
 	private void checkGPS() {
-		LocationManager status =
-				(LocationManager) (this.getSystemService(Context.LOCATION_SERVICE));
+		LocationManager status = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		if (!(status.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
 				status.isProviderEnabled(LocationManager.NETWORK_PROVIDER))) {
 			Toast.makeText(this, R.string.gps_not_open, Toast.LENGTH_LONG).show();

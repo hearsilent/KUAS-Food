@@ -1,9 +1,12 @@
 package hearsilent.kuas.food.libs;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.StringDef;
 import android.util.DisplayMetrics;
@@ -127,6 +130,26 @@ public class Utils {
 		Point size = new Point();
 		display.getSize(size);
 		return size;
+	}
+
+	public static void startNavigationActivity(Context context, double startLatitude,
+	                                           double startLongitude, double endLatitude,
+	                                           double endLongitude) {
+		String saddr = "saddr=" + startLatitude + "," + startLongitude;
+		String daddr = "daddr=" + endLatitude + "," + endLongitude;
+		String uriString = "http://maps.google.com/maps?" + saddr + "&" + daddr;
+
+		Uri uri = Uri.parse(uriString);
+
+		try {
+			Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+			intent.setClassName("com.google.android.apps.maps",
+					"com.google.android.maps.MapsActivity");
+			context.startActivity(intent);
+		} catch (ActivityNotFoundException e) {
+			Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+			context.startActivity(intent);
+		}
 	}
 
 }

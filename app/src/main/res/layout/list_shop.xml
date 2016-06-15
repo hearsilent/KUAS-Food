@@ -4,11 +4,14 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
+             android:clipChildren="false"
+             android:clipToPadding="false"
              android:padding="@dimen/margin_xsmall"
              tools:ignore="RtlHardcoded">
 
 	<android.support.v7.widget.CardView
-		style="@style/SelectableItemTheme"
+		android:id="@+id/cardView"
+		style="@style/SelectableItemBackground"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		card_view:cardCornerRadius="4dp">
@@ -23,16 +26,19 @@
 				android:layout_height="wrap_content">
 
 				<ImageView
+					android:id="@+id/imageView"
 					android:layout_width="match_parent"
 					android:layout_height="150dp"
 					android:contentDescription="@null"
 					android:scaleType="centerCrop"
-					android:src="@mipmap/ic_launcher"/>
+					tools:src="@mipmap/ic_launcher"/>
 
 				<TextView
+					android:id="@+id/textView_dis"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="end|bottom"
+					android:background="@drawable/dis_background"
 					android:padding="@dimen/margin_xsmall"
 					android:textColor="#fff"
 					android:textSize="@dimen/text_caption"
@@ -53,6 +59,7 @@
 					android:padding="@dimen/margin_small">
 
 					<TextView
+						android:id="@+id/textView_name"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:ellipsize="end"
@@ -63,6 +70,7 @@
 						tools:text="HearSilent"/>
 
 					<TextView
+						android:id="@+id/textView_phone"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/margin_small"
@@ -73,6 +81,7 @@
 						tools:text="電話：071234567"/>
 
 					<TextView
+						android:id="@+id/textView_time"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/margin_xsmall"

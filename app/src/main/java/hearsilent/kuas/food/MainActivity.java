@@ -105,8 +105,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void checkGPS() {
-		LocationManager status =
-				(LocationManager) (this.getSystemService(Context.LOCATION_SERVICE));
+		LocationManager status = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		if (status.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
 				status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			setUpLocationService();
@@ -307,6 +306,12 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.shops) {
+			startActivity(new Intent(this, ShopsActivity.class));
+			return true;
+		} else if (item.getItemId() == R.id.open_source) {
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 }

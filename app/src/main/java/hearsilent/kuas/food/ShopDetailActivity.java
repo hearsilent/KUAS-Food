@@ -1,14 +1,12 @@
 package hearsilent.kuas.food;
 
 import android.Manifest;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -37,7 +35,7 @@ public class ShopDetailActivity extends AppCompatActivity implements LocationLis
 	private KenBurnsView mHeaderImageView;
 
 	private TextView mDescTextView, mAddressTextView, mPhoneTextView, mRegionTextView,
-			mTimeTextView;
+			mTimeTextView, mDisTextView;
 
 	private FloatingActionButton mFAB;
 
@@ -63,8 +61,7 @@ public class ShopDetailActivity extends AppCompatActivity implements LocationLis
 		if (!PermissionUtils.isPermissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 			return;
 		}
-		LocationManager status =
-				(LocationManager) (this.getSystemService(Context.LOCATION_SERVICE));
+		LocationManager status = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		if (status.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
 				status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			setUpLocationService();
@@ -96,6 +93,9 @@ public class ShopDetailActivity extends AppCompatActivity implements LocationLis
 		if (location != null) {
 			mLatitude = location.getLatitude();
 			mLongitude = location.getLongitude();
+			mDisTextView.setText(getString(R.string.shop_dis,
+					Utils.gps2m(mLatitude, mLongitude, mShopModel.getLat(), mShopModel.getLng()) /
+							1000));
 		} else {
 			Toast.makeText(this, R.string.gps_not_work, Toast.LENGTH_SHORT).show();
 		}
@@ -115,6 +115,8 @@ public class ShopDetailActivity extends AppCompatActivity implements LocationLis
 		mPhoneTextView = (TextView) findViewById(R.id.textView_phone);
 		mRegionTextView = (TextView) findViewById(R.id.textView_region);
 		mTimeTextView = (TextView) findViewById(R.id.textView_time);
+
+		mDisTextView = (TextView) findViewById(R.id.textView_dis);
 
 		mFAB = (FloatingActionButton) findViewById(R.id.fab);
 	}
@@ -151,7 +153,7 @@ public class ShopDetailActivity extends AppCompatActivity implements LocationLis
 		mDescTextView.setText(mShopModel.getDescription());
 		mAddressTextView.setText(mShopModel.getAddress());
 		mPhoneTextView.setText(mShopModel.getPhone());
-		mRegionTextView.setText(mShopModel.getRegion());
+		mRegionTextView.setText(getString(R.string.shop_region, mShopModel.getRegion()));
 		mTimeTextView.setText(mShopModel.getTime());
 
 		ImageLoader.getInstance().displayImage(mShopModel.getImage(), mHeaderImageView,
@@ -164,6 +166,9 @@ public class ShopDetailActivity extends AppCompatActivity implements LocationLis
 			mLatitude = Constant.YANCHAO_LAT;
 			mLongitude = Constant.YANCHAO_LNG;
 		}
+		mDisTextView.setText(getString(R.string.shop_dis,
+				Utils.gps2m(mLatitude, mLongitude, mShopModel.getLat(), mShopModel.getLng()) /
+						1000));
 
 		checkGPS();
 
@@ -171,21 +176,8 @@ public class ShopDetailActivity extends AppCompatActivity implements LocationLis
 
 			@Override
 			public void onClick(View v) {
-				String saddr = "saddr=" + mLatitude + "," + mLongitude;
-				String daddr = "daddr=" + mShopModel.getLat() + "," + mShopModel.getLng();
-				String uriString = "http://maps.google.com/maps?" + saddr + "&" + daddr;
-
-				Uri uri = Uri.parse(uriString);
-
-				try {
-					Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
-					intent.setClassName("com.google.android.apps.maps",
-							"com.google.android.maps.MapsActivity");
-					startActivity(intent);
-				} catch (ActivityNotFoundException e) {
-					Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
-					startActivity(intent);
-				}
+				Utils.startNavigationActivity(ShopDetailActivity.this, mLatitude, mLongitude,
+						mShopModel.getLat(), mShopModel.getLng());
 			}
 		});
 	}
