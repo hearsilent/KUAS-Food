@@ -118,10 +118,12 @@ public class MainActivity extends AppCompatActivity {
 		bestProvider = mLocationManager.getBestProvider(criteria, true);
 		Location location = mLocationManager.getLastKnownLocation(bestProvider);
 
-		double lat = location.getLatitude();
-		double lng = location.getLongitude();
+		if (location != null) {
+			double lat = location.getLatitude();
+			double lng = location.getLongitude();
 
-		mLocation = Utils.checkLocation(lat, lng);
+			mLocation = Utils.checkLocation(lat, lng);
+		}
 	}
 
 	private void setUpHintBubble() {

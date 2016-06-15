@@ -3,9 +3,8 @@ package hearsilent.kuas.food.base;
 import android.app.Application;
 import android.content.Context;
 
-/**
- * Created by Artem Kholodnyi on 11/2/15.
- */
+import org.litepal.LitePalApplication;
+
 public class App extends Application {
 
 	private static App app;
@@ -14,6 +13,9 @@ public class App extends Application {
 	public void onCreate() {
 		super.onCreate();
 		app = this;
+
+		// Init LitePal
+		LitePalApplication.initialize(this);
 	}
 
 	public static Context getAppContext() {
