@@ -12,12 +12,22 @@
 		>「權限」，開啟「位置」選項。</string>
 	<string name="go_to_settings">前往設定</string>
 	<string name="permission_request_fail">無法取得權限</string>
-	<string name="access_fine_location_denied">沒有位置權限，將定位於建功校區。</string>
+	<string name="access_fine_location_denied">沒有位置權限，將定位於建工校區。</string>
 	<string name="cancel">取消</string>
 
 	<string name="loading">載入中</string>
+	<string name="something_error">發生錯誤</string>
 
 	<string name="gps_not_open">請開啟定位服務</string>
+	<string name="gps_not_work">無法定位座標</string>
+
+	<string name="desc">描述</string>
+	<string name="address">地址</string>
+	<string name="phone">電話</string>
+	<string name="region">校區</string>
+	<string name="time">營業時間</string>
+
+	<string name="db_init_error">初始化資料庫發生錯誤，請聯絡作者！</string>
 
 	<string name="lorem_title">Lorem ipsum</string>
 	<string name="lorem_sentence">Lorem ipsum dolor sit amet.</string>

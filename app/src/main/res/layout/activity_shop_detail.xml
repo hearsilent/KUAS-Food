@@ -7,7 +7,8 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:fitsSystemWindows="true"
-	tools:context=".ShopsDetailActivity">
+	tools:context=".ShopDetailActivity"
+	tools:ignore="RtlHardcoded">
 
 	<android.support.design.widget.AppBarLayout
 		android:id="@+id/app_bar"
@@ -76,18 +77,19 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:gravity="center"
-						android:text="描述"
+						android:text="@string/desc"
 						android:textColor="@color/black_text"
 						android:textSize="@dimen/text_title"
 						android:textStyle="bold"/>
 
 					<TextView
+						android:id="@+id/textView_desc"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="@dimen/margin_small"
-						android:text="@string/lorem_paragraph"
 						android:textColor="@color/black_text"
-						android:textSize="@dimen/text_body_1"/>
+						android:textSize="@dimen/text_body_1"
+						tools:text="@string/lorem_paragraph"/>
 
 				</LinearLayout>
 
@@ -101,18 +103,19 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:gravity="center"
-						android:text="地址"
+						android:text="@string/address"
 						android:textColor="@color/black_text"
 						android:textSize="@dimen/text_title"
 						android:textStyle="bold"/>
 
 					<TextView
+						android:id="@+id/textView_address"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="@dimen/margin_small"
-						android:text="@string/lorem_paragraph"
 						android:textColor="@color/black_text"
-						android:textSize="@dimen/text_body_1"/>
+						android:textSize="@dimen/text_body_1"
+						tools:text="@string/lorem_paragraph"/>
 
 				</LinearLayout>
 
@@ -126,18 +129,19 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:gravity="center"
-						android:text="校區"
+						android:text="@string/phone"
 						android:textColor="@color/black_text"
 						android:textSize="@dimen/text_title"
 						android:textStyle="bold"/>
 
 					<TextView
+						android:id="@+id/textView_phone"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="@dimen/margin_small"
-						android:text="@string/lorem_paragraph"
 						android:textColor="@color/black_text"
-						android:textSize="@dimen/text_body_1"/>
+						android:textSize="@dimen/text_body_1"
+						tools:text="@string/lorem_paragraph"/>
 
 				</LinearLayout>
 
@@ -151,18 +155,45 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:gravity="center"
-						android:text="營業時間"
+						android:text="@string/region"
 						android:textColor="@color/black_text"
 						android:textSize="@dimen/text_title"
 						android:textStyle="bold"/>
 
 					<TextView
+						android:id="@+id/textView_region"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="@dimen/margin_small"
-						android:text="@string/lorem_paragraph"
 						android:textColor="@color/black_text"
-						android:textSize="@dimen/text_body_1"/>
+						android:textSize="@dimen/text_body_1"
+						tools:text="@string/lorem_paragraph"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:padding="@dimen/margin_small">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:gravity="center"
+						android:text="@string/time"
+						android:textColor="@color/black_text"
+						android:textSize="@dimen/text_title"
+						android:textStyle="bold"/>
+
+					<TextView
+						android:id="@+id/textView_time"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="@dimen/margin_small"
+						android:textColor="@color/black_text"
+						android:textSize="@dimen/text_body_1"
+						tools:text="@string/lorem_paragraph"/>
 
 				</LinearLayout>
 			</LinearLayout>

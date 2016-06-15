@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.daasuu.bl.BubbleLayout;
 import com.daasuu.bl.BubblePopupHelper;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,9 +38,11 @@ import java.util.Random;
 import github.hellocsl.cursorwheel.CursorWheelLayout;
 import hearsilent.kuas.food.adapter.SimpleTextAdapter;
 import hearsilent.kuas.food.libs.Constant;
+import hearsilent.kuas.food.libs.DatabaseUtils;
 import hearsilent.kuas.food.libs.Memory;
 import hearsilent.kuas.food.libs.PermissionUtils;
 import hearsilent.kuas.food.libs.Utils;
+import hearsilent.kuas.food.models.ShopModel;
 import hearsilent.kuas.food.particlesys.ParticleSystemRenderer;
 import hearsilent.kuas.food.widget.SimpleTextCursorWheelLayout;
 
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 	private GLSurfaceView mGlSurfaceView;
 
 	private SimpleTextCursorWheelLayout mCursorWheelLayout;
+
+	private List<ShopModel> mShopList;
 
 	private boolean firstTime = true;
 	private boolean select = false;
@@ -157,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 				int[] location = new int[2];
 				mSelectImageView.getLocationInWindow(location);
 				popupWindow.showAtLocation(mSelectImageView, Gravity.NO_GRAVITY,
-						location[0] - (int) Utils.convertDpToPixel(40f, MainActivity.this),
+						location[0] - (int) Utils.convertDpToPixel(32f, MainActivity.this),
 						location[1] + mSelectImageView.getHeight() +
 								(int) Utils.convertDpToPixel(5f, MainActivity.this));
 			}
@@ -194,6 +199,12 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void setUpWheel() {
+		if (mLocation.equals(Constant.JIANGONG)) {
+			mShopList = DatabaseUtils.getJianGongList();
+		} else {
+			mShopList = DatabaseUtils.getYanChaoList();
+		}
+
 		List<String> list = new ArrayList<>(Arrays.asList("K", "U", "A", "S", "F", "O", "O", "D"));
 		SimpleTextAdapter adapter = new SimpleTextAdapter(this, list);
 		mCursorWheelLayout.setAdapter(adapter);
@@ -209,9 +220,8 @@ public class MainActivity extends AppCompatActivity {
 					mShopTextView.animate().scaleX(1f).scaleY(1f);
 					mSelectImageView.setEnabled(false);
 				}
-				List<String> test = new ArrayList<>(
-						Arrays.asList("丹丹漢堡", "紅牛牛肉麵", "第一名火雞肉飯", "孩餃王", "麥當勞", "學園"));
-				mShopTextView.setText(test.get(new Random().nextInt(test.size())));
+				mShopTextView
+						.setText(mShopList.get(new Random().nextInt(mShopList.size())).getName());
 			}
 
 			@Override
@@ -230,7 +240,15 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
-
+				ShopModel model = DatabaseUtils.getShop(mShopTextView.getText().toString());
+				if (model != null) {
+					Intent intent = new Intent(MainActivity.this, ShopDetailActivity.class);
+					intent.putExtra("shop", new Gson().toJson(model));
+					startActivity(intent);
+				} else {
+					Toast.makeText(MainActivity.this, R.string.something_error, Toast.LENGTH_SHORT)
+							.show();
+				}
 			}
 		});
 		mSelectImageView.setOnTouchListener(new View.OnTouchListener() {
