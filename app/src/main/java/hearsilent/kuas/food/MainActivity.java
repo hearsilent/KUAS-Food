@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 	LocationRequest mLocationRequest;
 	private Location mLastLocation;
 
-	@Utils.Location private String mLocation = Constant.JIANGONG;
+	@Utils.Location String mLocation = Constant.JIANGONG;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
