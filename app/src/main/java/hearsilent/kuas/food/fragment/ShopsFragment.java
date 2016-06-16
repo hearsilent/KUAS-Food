@@ -1,29 +1,28 @@
 package hearsilent.kuas.food.fragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.PointF;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -37,7 +36,9 @@ import hearsilent.kuas.food.libs.PermissionUtils;
 import hearsilent.kuas.food.libs.Utils;
 import hearsilent.kuas.food.models.ShopModel;
 
-public class ShopsFragment extends Fragment implements LocationListener {
+public class ShopsFragment extends Fragment
+		implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+		LocationListener {
 
 	View mRootView;
 	RecyclerView mRecyclerView;
@@ -49,10 +50,11 @@ public class ShopsFragment extends Fragment implements LocationListener {
 	ShopAdapter mAdapter;
 	String mRegion;
 
-	private LocationManager mLocationManager;
-	private String bestProvider = LocationManager.GPS_PROVIDER;
+	private GoogleApiClient mGoogleApiClient;
+	LocationRequest mLocationRequest;
 
 	private double mLatitude, mLongitude;
+	private Location mLastLocation;
 
 	public static ShopsFragment newInstance(@Utils.Location String region) {
 		ShopsFragment shopsFragment = new ShopsFragment();
@@ -73,96 +75,98 @@ public class ShopsFragment extends Fragment implements LocationListener {
 		mRootView = inflater.inflate(R.layout.fragment_shops, container, false);
 
 		initValues();
+		checkPermission();
 		findViews();
 		setUpViews();
 
 		return mRootView;
 	}
 
-	private void checkGPS() {
-		if (!PermissionUtils
-				.isPermissionGranted(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-			return;
-		}
-		LocationManager status =
-				(LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-		if (status.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-				status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-			setUpLocationService();
+	private void checkPermission() {
+		if (mRegion.equals(Constant.JIANGONG)) {
+			mLatitude = Constant.JIANGONG_LAT;
+			mLongitude = Constant.JIANGONG_LNG;
 		} else {
-			Toast.makeText(getContext(), R.string.gps_not_open, Toast.LENGTH_LONG).show();
-			startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+			mLatitude = Constant.YANCHAO_LAT;
+			mLongitude = Constant.YANCHAO_LNG;
+		}
+		if (PermissionUtils
+				.isPermissionGranted(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+			setUpGoogleApiClient();
 		}
 	}
 
+	synchronized void setUpGoogleApiClient() {
+		mGoogleApiClient = new GoogleApiClient.Builder(getContext()).addConnectionCallbacks(this)
+				.addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
+	}
+
 	@SuppressWarnings("all")
-	private void setUpLocationService() {
-		mLocationManager =
-				(LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+	@Override
+	public void onConnected(@Nullable Bundle bundle) {
+		mLocationRequest = LocationRequest.create();
+		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+		mLocationRequest.setInterval(500);
 
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		criteria.setAltitudeRequired(false);
-		criteria.setBearingRequired(false);
-		criteria.setCostAllowed(false);
-		criteria.setPowerRequirement(Criteria.POWER_HIGH);
+		if (Utils.checkGPSisOpen(getContext())) {
+			LocationServices.FusedLocationApi
+					.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
-		bestProvider = Utils.getBestProvider(mLocationManager, criteria);
-		bestProvider =
-				TextUtils.isEmpty(bestProvider) ? LocationManager.GPS_PROVIDER : bestProvider;
+			getLocation(LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient));
+		}
+	}
 
-		getLocation(mLocationManager.getLastKnownLocation(bestProvider));
+	@Override
+	public void onLocationChanged(@NonNull Location location) {
+		if (mLastLocation == null || location.getAccuracy() > mLastLocation.getAccuracy()) {
+			getLocation(location);
+		}
+	}
+
+	@Override
+	public void onConnectionSuspended(int i) {
+
+	}
+
+	@Override
+	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+		checkPermission();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		checkPermission();
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		if (mGoogleApiClient != null) {
+			mGoogleApiClient.connect();
+		}
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if (mGoogleApiClient != null) {
+			mGoogleApiClient.disconnect();
+		}
 	}
 
 	@SuppressWarnings("all")
 	private void getLocation(Location location) {
 		if (location != null) {
-			mLatitude = location.getLatitude();
-			mLongitude = location.getLongitude();
+			mLastLocation = location;
+
 			if (Double.compare(mLatitude, location.getLatitude()) != 0 ||
 					Double.compare(mLongitude, location.getLongitude()) != 0) {
+				mLatitude = location.getLatitude();
+				mLongitude = location.getLongitude();
 				mAdapter.notifyDataSetChanged();
 			}
-		} else {
-			Toast.makeText(getContext(), R.string.gps_not_work, Toast.LENGTH_SHORT).show();
 		}
-	}
-
-	@SuppressWarnings("all")
-	@Override
-	public void onResume() {
-		super.onResume();
-		if (mLocationManager != null) {
-			mLocationManager.requestLocationUpdates(bestProvider, 500, 1, this);
-		} else {
-			checkGPS();
-		}
-	}
-
-	@SuppressWarnings("all")
-	@Override
-	public void onPause() {
-		super.onPause();
-		if (mLocationManager != null) {
-			mLocationManager.removeUpdates(this);
-		}
-	}
-
-	@Override
-	public void onLocationChanged(Location location) {
-		getLocation(location);
-	}
-
-	@Override
-	public void onProviderDisabled(String arg0) {
-	}
-
-	@Override
-	public void onProviderEnabled(String arg0) {
-	}
-
-	@Override
-	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 	}
 
 	private void initValues() {

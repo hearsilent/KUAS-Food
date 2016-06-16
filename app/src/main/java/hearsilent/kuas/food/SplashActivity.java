@@ -1,15 +1,14 @@
 package hearsilent.kuas.food;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -19,6 +18,7 @@ import hearsilent.kuas.food.libs.Constant;
 import hearsilent.kuas.food.libs.DatabaseUtils;
 import hearsilent.kuas.food.libs.Memory;
 import hearsilent.kuas.food.libs.PermissionUtils;
+import hearsilent.kuas.food.libs.Utils;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -31,6 +31,16 @@ public class SplashActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 
+		if (!Utils.hasGooglePlayServices(this)) {
+			new AlertDialog.Builder(this).setMessage(R.string.no_google_play_service)
+					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							finish();
+						}
+					}).setCancelable(false).show();
+		}
 		setUpDB();
 		setUpViews();
 		grantPermission();
@@ -72,9 +82,7 @@ public class SplashActivity extends AppCompatActivity {
 	}
 
 	private void checkGPS() {
-		LocationManager status = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		if (!(status.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-				status.isProviderEnabled(LocationManager.NETWORK_PROVIDER))) {
+		if (!Utils.checkGPSisOpen(this)) {
 			Toast.makeText(this, R.string.gps_not_open, Toast.LENGTH_LONG).show();
 			startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS),
 					PERMISSION_REQUEST_GPS_SETTINGS);

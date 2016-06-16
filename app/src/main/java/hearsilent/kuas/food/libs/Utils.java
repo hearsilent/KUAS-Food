@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.location.Criteria;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +14,8 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -154,23 +155,16 @@ public class Utils {
 		}
 	}
 
-	@SuppressWarnings("all")
-	public static String getBestProvider(LocationManager locationManager, Criteria criteria) {
-		android.location.Location gpsLocation =
-				locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		android.location.Location networkLocation =
-				locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		if (gpsLocation != null && networkLocation != null) {
-			if (networkLocation.getTime() > gpsLocation.getTime()) {
-				return LocationManager.NETWORK_PROVIDER;
-			} else {
-				return LocationManager.GPS_PROVIDER;
-			}
-		} else if (networkLocation != null) {
-			return LocationManager.NETWORK_PROVIDER;
-		} else {
-			return locationManager.getBestProvider(criteria, true);
-		}
+	public static boolean hasGooglePlayServices(Context context) {
+		return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) ==
+				ConnectionResult.SUCCESS;
+	}
+
+	public static boolean checkGPSisOpen(Context context) {
+		LocationManager manager =
+				(LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+		return manager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+				manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 	}
 
 }

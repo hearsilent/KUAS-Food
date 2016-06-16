@@ -12,14 +12,21 @@
 		>「權限」，開啟「位置」選項。</string>
 	<string name="go_to_settings">前往設定</string>
 	<string name="permission_request_fail">無法取得權限</string>
-	<string name="access_fine_location_denied">沒有位置權限，將定位於建工校區。</string>
+	<string name="access_fine_location_denied_jiangong">沒有位置權限，將定位於建工校區。</string>
+	<string name="access_fine_location_denied_yanchao">沒有位置權限，將定位於燕巢校區。</string>
+
+	<string name="ok">好</string>
 	<string name="cancel">取消</string>
 
 	<string name="loading">載入中</string>
 	<string name="something_error">發生錯誤</string>
 
-	<string name="gps_not_open">請開啟定位服務</string>
+	<string name="gps_not_open">請開啟定位服務，才能使用最完整的服務！</string>
+	<string name="gps_not_open_jiangong">無法定位，將定位於建工校區。</string>
+	<string name="gps_not_open_yanchao">無法定位，將定位於燕巢校區。</string>
 	<string name="gps_not_work">無法定位座標</string>
+
+	<string name="no_google_play_service">沒有 Google Play 服務，無法使用此 App。</string>
 
 	<string name="desc">描述</string>
 	<string name="address">地址</string>
