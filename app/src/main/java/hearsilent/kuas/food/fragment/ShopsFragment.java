@@ -16,6 +16,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,13 +104,14 @@ public class ShopsFragment extends Fragment implements LocationListener {
 		criteria.setAccuracy(Criteria.ACCURACY_FINE);
 		criteria.setAltitudeRequired(false);
 		criteria.setBearingRequired(false);
-		criteria.setCostAllowed(true);
-		criteria.setPowerRequirement(Criteria.POWER_LOW);
+		criteria.setCostAllowed(false);
+		criteria.setPowerRequirement(Criteria.POWER_HIGH);
 
-		bestProvider = mLocationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null ?
-				LocationManager.NETWORK_PROVIDER : mLocationManager.getBestProvider(criteria, true);
-		Location location = mLocationManager.getLastKnownLocation(bestProvider);
-		getLocation(location);
+		bestProvider = Utils.getBestProvider(mLocationManager, criteria);
+		bestProvider =
+				TextUtils.isEmpty(bestProvider) ? LocationManager.GPS_PROVIDER : bestProvider;
+
+		getLocation(mLocationManager.getLastKnownLocation(bestProvider));
 	}
 
 	@SuppressWarnings("all")

@@ -14,6 +14,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -79,13 +80,14 @@ public class ShopDetailActivity extends AppCompatActivity implements LocationLis
 		criteria.setAccuracy(Criteria.ACCURACY_FINE);
 		criteria.setAltitudeRequired(false);
 		criteria.setBearingRequired(false);
-		criteria.setCostAllowed(true);
-		criteria.setPowerRequirement(Criteria.POWER_LOW);
+		criteria.setCostAllowed(false);
+		criteria.setPowerRequirement(Criteria.POWER_HIGH);
 
-		bestProvider = mLocationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null ?
-				LocationManager.NETWORK_PROVIDER : mLocationManager.getBestProvider(criteria, true);
-		Location location = mLocationManager.getLastKnownLocation(bestProvider);
-		getLocation(location);
+		bestProvider = Utils.getBestProvider(mLocationManager, criteria);
+		bestProvider =
+				TextUtils.isEmpty(bestProvider) ? LocationManager.GPS_PROVIDER : bestProvider;
+
+		getLocation(mLocationManager.getLastKnownLocation(bestProvider));
 	}
 
 	@SuppressWarnings("all")

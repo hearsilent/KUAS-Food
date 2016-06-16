@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.StringDef;
@@ -149,6 +151,25 @@ public class Utils {
 		} catch (ActivityNotFoundException e) {
 			Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
 			context.startActivity(intent);
+		}
+	}
+
+	@SuppressWarnings("all")
+	public static String getBestProvider(LocationManager locationManager, Criteria criteria) {
+		android.location.Location gpsLocation =
+				locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		android.location.Location networkLocation =
+				locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		if (gpsLocation != null && networkLocation != null) {
+			if (networkLocation.getTime() > gpsLocation.getTime()) {
+				return LocationManager.NETWORK_PROVIDER;
+			} else {
+				return LocationManager.GPS_PROVIDER;
+			}
+		} else if (networkLocation != null) {
+			return LocationManager.NETWORK_PROVIDER;
+		} else {
+			return locationManager.getBestProvider(criteria, true);
 		}
 	}
 
