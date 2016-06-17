@@ -15,7 +15,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity
 
 	}
 
-	@SuppressWarnings("all")
+	@SuppressWarnings("MissingPermission")
 	@Override
 	public void onConnected(@Nullable Bundle bundle) {
 		mLocationRequest = LocationRequest.create();
@@ -143,7 +142,6 @@ public class MainActivity extends AppCompatActivity
 		}
 	}
 
-	@SuppressWarnings("all")
 	private void getLocation(Location location) {
 		if (location != null) {
 			mLastLocation = location;
@@ -195,8 +193,8 @@ public class MainActivity extends AppCompatActivity
 
 			@Override
 			public void run() {
-				BubbleLayout bubbleLayout = (BubbleLayout) LayoutInflater.from(MainActivity.this)
-						.inflate(R.layout.bubble_hint, null);
+				BubbleLayout bubbleLayout =
+						(BubbleLayout) View.inflate(MainActivity.this, R.layout.bubble_hint, null);
 				PopupWindow popupWindow = BubblePopupHelper.create(MainActivity.this, bubbleLayout);
 				popupWindow.setWidth((int) Utils.convertDpToPixel(180f, MainActivity.this));
 				int[] location = new int[2];
@@ -211,8 +209,8 @@ public class MainActivity extends AppCompatActivity
 
 			@Override
 			public void run() {
-				BubbleLayout bubbleLayout = (BubbleLayout) LayoutInflater.from(MainActivity.this)
-						.inflate(R.layout.bubble_hint_click, null);
+				BubbleLayout bubbleLayout = (BubbleLayout) View
+						.inflate(MainActivity.this, R.layout.bubble_hint_click, null);
 				PopupWindow popupWindow = BubblePopupHelper.create(MainActivity.this, bubbleLayout);
 				popupWindow.setWidth((int) Utils.convertDpToPixel(140f, MainActivity.this));
 				int[] location = new int[2];

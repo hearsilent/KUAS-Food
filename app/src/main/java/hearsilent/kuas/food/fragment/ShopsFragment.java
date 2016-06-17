@@ -101,7 +101,7 @@ public class ShopsFragment extends Fragment
 				.addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
 	}
 
-	@SuppressWarnings("all")
+	@SuppressWarnings("MissingPermission")
 	@Override
 	public void onConnected(@Nullable Bundle bundle) {
 		mLocationRequest = LocationRequest.create();
@@ -155,7 +155,6 @@ public class ShopsFragment extends Fragment
 		}
 	}
 
-	@SuppressWarnings("all")
 	private void getLocation(Location location) {
 		if (location != null) {
 			mLastLocation = location;

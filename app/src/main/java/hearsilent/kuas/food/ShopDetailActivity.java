@@ -88,7 +88,7 @@ public class ShopDetailActivity extends AppCompatActivity
 
 	}
 
-	@SuppressWarnings("all")
+	@SuppressWarnings("MissingPermission")
 	@Override
 	public void onConnected(@Nullable Bundle bundle) {
 		mLocationRequest = LocationRequest.create();
@@ -142,7 +142,6 @@ public class ShopDetailActivity extends AppCompatActivity
 		}
 	}
 
-	@SuppressWarnings("all")
 	private void getLocation(Location location) {
 		if (location != null) {
 			mLastLocation = location;
@@ -175,7 +174,6 @@ public class ShopDetailActivity extends AppCompatActivity
 		mFAB = (FloatingActionButton) findViewById(R.id.fab);
 	}
 
-	@SuppressWarnings("all")
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -184,7 +182,6 @@ public class ShopDetailActivity extends AppCompatActivity
 		}
 	}
 
-	@SuppressWarnings("all")
 	@Override
 	protected void onPause() {
 		super.onPause();
