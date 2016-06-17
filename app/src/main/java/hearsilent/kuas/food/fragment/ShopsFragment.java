@@ -54,7 +54,6 @@ public class ShopsFragment extends Fragment
 	LocationRequest mLocationRequest;
 
 	private double mLatitude, mLongitude;
-	private Location mLastLocation;
 
 	public static ShopsFragment newInstance(@Utils.Location String region) {
 		ShopsFragment shopsFragment = new ShopsFragment();
@@ -117,10 +116,8 @@ public class ShopsFragment extends Fragment
 	}
 
 	@Override
-	public void onLocationChanged(@NonNull Location location) {
-		if (mLastLocation == null || location.getAccuracy() > mLastLocation.getAccuracy()) {
-			getLocation(location);
-		}
+	public void onLocationChanged(Location location) {
+		getLocation(location);
 	}
 
 	@Override
@@ -157,8 +154,6 @@ public class ShopsFragment extends Fragment
 
 	private void getLocation(Location location) {
 		if (location != null) {
-			mLastLocation = location;
-
 			if (Double.compare(mLatitude, location.getLatitude()) != 0 ||
 					Double.compare(mLongitude, location.getLongitude()) != 0) {
 				mLatitude = location.getLatitude();

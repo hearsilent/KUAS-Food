@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity
 
 	private GoogleApiClient mGoogleApiClient;
 	LocationRequest mLocationRequest;
-	private Location mLastLocation;
 
 	@Utils.Location String mLocation = Constant.JIANGONG;
 
@@ -137,15 +136,11 @@ public class MainActivity extends AppCompatActivity
 
 	@Override
 	public void onLocationChanged(@NonNull Location location) {
-		if (mLastLocation == null || location.getAccuracy() > mLastLocation.getAccuracy()) {
-			getLocation(location);
-		}
+		getLocation(location);
 	}
 
 	private void getLocation(Location location) {
 		if (location != null) {
-			mLastLocation = location;
-
 			double lat = location.getLatitude();
 			double lng = location.getLongitude();
 

@@ -47,7 +47,6 @@ public class ShopDetailActivity extends AppCompatActivity
 	LocationRequest mLocationRequest;
 
 	private double mLatitude, mLongitude;
-	private Location mLastLocation;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,9 +110,7 @@ public class ShopDetailActivity extends AppCompatActivity
 
 	@Override
 	public void onLocationChanged(@NonNull Location location) {
-		if (mLastLocation == null || location.getAccuracy() > mLastLocation.getAccuracy()) {
-			getLocation(location);
-		}
+		getLocation(location);
 	}
 
 	@Override
@@ -144,8 +141,6 @@ public class ShopDetailActivity extends AppCompatActivity
 
 	private void getLocation(Location location) {
 		if (location != null) {
-			mLastLocation = location;
-
 			mLatitude = location.getLatitude();
 			mLongitude = location.getLongitude();
 			mDisTextView.setText(getString(R.string.shop_dis,
