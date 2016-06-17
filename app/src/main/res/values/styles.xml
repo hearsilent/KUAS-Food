@@ -7,6 +7,7 @@
 		<item name="android:windowBackground">@color/app_bg</item>
 		<item name="android:windowDrawsSystemBarBackgrounds" tools:ignore="newAPI">true</item>
 		<item name="android:statusBarColor" tools:ignore="newAPI">@color/colorPrimaryDark</item>
+		<item name="android:navigationBarColor" tools:ignore="newAPI">@color/colorPrimaryDark</item>
 	</style>
 
 	<style name="StarWarsAppTheme" parent="Theme.AppCompat.NoActionBar">
@@ -35,6 +36,7 @@
 		<item name="android:windowBackground">@color/app_bg</item>
 		<item name="android:windowDrawsSystemBarBackgrounds" tools:ignore="newAPI">true</item>
 		<item name="android:statusBarColor" tools:ignore="newAPI">#3000</item>
+		<item name="android:navigationBarColor" tools:ignore="newAPI">@color/colorPrimaryDark</item>
 	</style>
 
 	<style name="AppTheme.Fab">
@@ -48,6 +50,24 @@
 	<style name="SelectableItemBackground">
 		<item name="android:theme">@style/SelectableItemTheme</item>
 		<item name="android:foreground">?attr/selectableItemBackground</item>
+	</style>
+
+	<style name="Widget.OpenSource.CardContent" parent="android:Widget">
+		<item name="android:paddingLeft">16dp</item>
+		<item name="android:paddingRight">16dp</item>
+		<item name="android:paddingTop">24dp</item>
+		<item name="android:paddingBottom">24dp</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+	<style name="OpenSourceTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowBackground">@color/app_bg</item>
+		<item name="android:windowDrawsSystemBarBackgrounds" tools:ignore="newAPI">true</item>
+		<item name="android:statusBarColor" tools:ignore="newAPI">@color/colorPrimaryDark</item>
+		<item name="android:navigationBarColor" tools:ignore="newAPI">@color/colorPrimaryDark</item>
 	</style>
 
 </resources>

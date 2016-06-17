@@ -359,6 +359,7 @@ public class MainActivity extends AppCompatActivity
 			startActivity(new Intent(this, ShopsActivity.class));
 			return true;
 		} else if (item.getItemId() == R.id.open_source) {
+			startActivity(new Intent(this, OpenSourceActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
