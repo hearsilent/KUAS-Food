@@ -14,13 +14,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import hearsilent.kuas.food.callback.PermissionCallback;
+import hearsilent.kuas.food.libs.AsyncCopyDatabase;
 import hearsilent.kuas.food.libs.Constant;
-import hearsilent.kuas.food.libs.DatabaseUtils;
 import hearsilent.kuas.food.libs.Memory;
 import hearsilent.kuas.food.libs.PermissionUtils;
 import hearsilent.kuas.food.libs.Utils;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity
+		implements AsyncCopyDatabase.DatabaseCopyListener {
 
 	private static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 200;
 	private static final int PERMISSION_REQUEST_SETTINGS = 201;
@@ -41,9 +42,8 @@ public class SplashActivity extends AppCompatActivity {
 						}
 					}).setCancelable(false).show();
 		}
-		setUpDB();
 		setUpViews();
-		grantPermission();
+		setUpDB();
 	}
 
 	private void setUpViews() {
@@ -60,13 +60,23 @@ public class SplashActivity extends AppCompatActivity {
 
 	private void setUpDB() {
 		if (Constant.DB_VERSION > Memory.getInt(this, Constant.PREF_DB_VERSION, 0)) {
-			if (!DatabaseUtils.copyDataBase(this) &&
-					Memory.getInt(this, Constant.PREF_DB_VERSION, 0) == 0) {
-				Toast.makeText(this, R.string.db_init_error, Toast.LENGTH_LONG).show();
-				finish();
-			} else {
-				Memory.setInt(this, Constant.PREF_DB_VERSION, Constant.DB_VERSION);
-			}
+			new AsyncCopyDatabase(this, this).execute();
+		} else {
+			grantPermission();
+		}
+	}
+
+	@Override
+	public void onPreExecute(boolean success) {
+		if (isFinishing()) {
+			return;
+		}
+		if (!success && Memory.getInt(this, Constant.PREF_DB_VERSION, 0) == 0) {
+			Toast.makeText(this, R.string.db_init_error, Toast.LENGTH_LONG).show();
+			finish();
+		} else {
+			Memory.setInt(this, Constant.PREF_DB_VERSION, Constant.DB_VERSION);
+			grantPermission();
 		}
 	}
 
