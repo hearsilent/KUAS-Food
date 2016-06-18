@@ -20,27 +20,27 @@ public class DatabaseUtils {
 
 	public static boolean copyDataBase(Context context) {
 		byte[] buffer = new byte[1024];
-		OutputStream myOutput;
 		int length;
-		InputStream myInput;
+		InputStream inputStream;
+		OutputStream outputStream;
 		try {
-			myInput = context.getAssets().open(DATABASE_NAME);
+			inputStream = context.getAssets().open(DATABASE_NAME);
 			File folder = new File(DATABASE_FOLDER);
 			boolean success = true;
 			if (!folder.exists()) {
 				success = folder.mkdir();
 			}
 			if (success) {
-				myOutput = new FileOutputStream(DATABASE_FOLDER + DATABASE_NAME);
+				outputStream = new FileOutputStream(DATABASE_FOLDER + DATABASE_NAME);
 			} else {
 				return false;
 			}
-			while ((length = myInput.read(buffer)) > 0) {
-				myOutput.write(buffer, 0, length);
+			while ((length = inputStream.read(buffer)) > 0) {
+				outputStream.write(buffer, 0, length);
 			}
-			myOutput.close();
-			myOutput.flush();
-			myInput.close();
+			outputStream.close();
+			outputStream.flush();
+			inputStream.close();
 
 			return true;
 		} catch (IOException e) {
