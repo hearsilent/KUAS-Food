@@ -14,18 +14,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daasuu.bl.BubbleLayout;
-import com.daasuu.bl.BubblePopupHelper;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -42,7 +38,6 @@ import github.hellocsl.cursorwheel.CursorWheelLayout;
 import hearsilent.kuas.food.adapter.SimpleTextAdapter;
 import hearsilent.kuas.food.libs.Constant;
 import hearsilent.kuas.food.libs.DatabaseUtils;
-import hearsilent.kuas.food.libs.Memory;
 import hearsilent.kuas.food.libs.PermissionUtils;
 import hearsilent.kuas.food.libs.Utils;
 import hearsilent.kuas.food.models.ShopModel;
@@ -75,6 +70,7 @@ public class MainActivity extends AppCompatActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 		setContentView(R.layout.activity_main);
 
 		findViews();
@@ -99,7 +95,6 @@ public class MainActivity extends AppCompatActivity
 		setUpTitle();
 		setUpWheel();
 		setUpSelectView();
-		setUpHintBubble();
 	}
 
 	private void checkPermission() {
@@ -178,44 +173,6 @@ public class MainActivity extends AppCompatActivity
 		if (mGoogleApiClient != null) {
 			mGoogleApiClient.disconnect();
 		}
-	}
-
-	private void setUpHintBubble() {
-		if (Memory.getBoolean(this, Constant.PREF_HINT, false)) {
-			return;
-		}
-		mCursorWheelLayout.post(new Runnable() {
-
-			@Override
-			public void run() {
-				BubbleLayout bubbleLayout =
-						(BubbleLayout) View.inflate(MainActivity.this, R.layout.bubble_hint, null);
-				PopupWindow popupWindow = BubblePopupHelper.create(MainActivity.this, bubbleLayout);
-				popupWindow.setWidth((int) Utils.convertDpToPixel(180f, MainActivity.this));
-				int[] location = new int[2];
-				mCursorWheelLayout.getLocationInWindow(location);
-				popupWindow.showAtLocation(mCursorWheelLayout, Gravity.NO_GRAVITY, location[0] +
-								(int) (mCursorWheelLayout.getWidth() -
-										Utils.convertDpToPixel(176f, MainActivity.this)) / 2,
-						location[1] - (int) Utils.convertDpToPixel(70f, MainActivity.this));
-			}
-		});
-		mSelectImageView.post(new Runnable() {
-
-			@Override
-			public void run() {
-				BubbleLayout bubbleLayout = (BubbleLayout) View
-						.inflate(MainActivity.this, R.layout.bubble_hint_click, null);
-				PopupWindow popupWindow = BubblePopupHelper.create(MainActivity.this, bubbleLayout);
-				popupWindow.setWidth((int) Utils.convertDpToPixel(140f, MainActivity.this));
-				int[] location = new int[2];
-				mSelectImageView.getLocationInWindow(location);
-				popupWindow.showAtLocation(mSelectImageView, Gravity.NO_GRAVITY,
-						location[0] - (int) Utils.convertDpToPixel(32f, MainActivity.this),
-						location[1] + mSelectImageView.getHeight() +
-								(int) Utils.convertDpToPixel(5f, MainActivity.this));
-			}
-		});
 	}
 
 	private void setUpBackground() {
@@ -315,7 +272,6 @@ public class MainActivity extends AppCompatActivity
 
 	private void toggleTitle() {
 		firstTime = false;
-		Memory.setBoolean(this, Constant.PREF_HINT, true);
 		mTitleTextView.animate().alpha(0f).setListener(new Animator.AnimatorListener() {
 
 			@Override

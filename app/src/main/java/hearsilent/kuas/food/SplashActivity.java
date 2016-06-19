@@ -106,10 +106,12 @@ public class SplashActivity extends AppCompatActivity
 
 			@Override
 			public void run() {
-				startActivity(new Intent(SplashActivity.this, MainActivity.class));
+				startActivity(new Intent(SplashActivity.this,
+						!Memory.getBoolean(SplashActivity.this, Constant.PREF_HINT, false) ?
+								IntroActivity.class : MainActivity.class));
 				finish();
 			}
-		}, 2500);
+		}, 2000);
 	}
 
 	@Override

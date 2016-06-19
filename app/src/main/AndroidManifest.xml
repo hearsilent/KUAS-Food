@@ -39,6 +39,9 @@
 			android:label="@string/open_source"
 			android:screenOrientation="portrait"
 			android:theme="@style/OpenSourceTheme"/>
+		<activity
+			android:name=".IntroActivity"
+			android:theme="@style/StarWarsAppTheme"/>
 
 		<meta-data
 			android:name="com.google.android.gms.version"
