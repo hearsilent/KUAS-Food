@@ -105,7 +105,7 @@ public class ShopsFragment extends Fragment
 	public void onConnected(@Nullable Bundle bundle) {
 		mLocationRequest = LocationRequest.create();
 		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-		mLocationRequest.setInterval(500);
+		mLocationRequest.setInterval(1000);
 
 		if (Utils.checkGPSisOpen(getContext())) {
 			LocationServices.FusedLocationApi

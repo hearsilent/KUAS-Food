@@ -153,6 +153,7 @@
 						android:id="@+id/textView_phone"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:background="?attr/selectableItemBackground"
 						android:padding="@dimen/margin_small"
 						android:textColor="@color/black_text"
 						android:textSize="@dimen/text_body_1"

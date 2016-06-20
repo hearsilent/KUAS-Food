@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity
 	public void onConnected(@Nullable Bundle bundle) {
 		mLocationRequest = LocationRequest.create();
 		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-		mLocationRequest.setInterval(500);
+		mLocationRequest.setInterval(1000);
 
 		if (!Utils.checkGPSisOpen(this)) {
 			Toast.makeText(this, R.string.gps_not_open_jiangong, Toast.LENGTH_SHORT).show();

@@ -58,12 +58,15 @@
 		<FrameLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center">
+			android:layout_gravity="center"
+			android:layout_marginTop="@dimen/margin_small">
 
 			<ImageView
-				android:layout_width="350dp"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
+				android:layout_marginLeft="@dimen/margin_medium"
+				android:layout_marginRight="@dimen/margin_medium"
 				android:adjustViewBounds="true"
 				android:contentDescription="@null"
 				android:src="@drawable/wheel_frame"/>

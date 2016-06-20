@@ -1,7 +1,9 @@
 package hearsilent.kuas.food;
 
 import android.Manifest;
+import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -92,7 +94,7 @@ public class ShopDetailActivity extends AppCompatActivity
 	public void onConnected(@Nullable Bundle bundle) {
 		mLocationRequest = LocationRequest.create();
 		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-		mLocationRequest.setInterval(500);
+		mLocationRequest.setInterval(1000);
 
 		if (!Utils.checkGPSisOpen(this)) {
 			if (mShopModel.getRegion().equals(Constant.JIANGONG)) {
@@ -210,6 +212,18 @@ public class ShopDetailActivity extends AppCompatActivity
 						mShopModel.getLat(), mShopModel.getLng());
 			}
 		});
+
+		if (mShopModel.getPhone().length() > 3) {
+			mPhoneTextView.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent myIntentDial = new Intent(Intent.ACTION_DIAL,
+							Uri.parse("tel:" + mShopModel.getPhone()));
+					startActivity(myIntentDial);
+				}
+			});
+		}
 	}
 
 	private void setUpToolbar() {
