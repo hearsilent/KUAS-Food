@@ -7,7 +7,7 @@ public class Constant {
 	public static final String PREF_HINT = "pref_hint";
 	public static final String PREF_DB_VERSION = "pref_db_version";
 
-	public static final int DB_VERSION = 1;
+	public static final int DB_VERSION = 2;
 
 	public static final double JIANGONG_LAT = 22.6512281;
 	public static final double JIANGONG_LNG = 120.32869359999995;
